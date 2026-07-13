@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Uthiru 87 · Waiyaki Way</div>
+      <h1>Feed your animals <em>right</em>, every single bag.</h1>
+      <p class="lead">We stock poultry, dairy, pig, rabbit and pet feed for farmers and homesteads along Waiyaki Way — fresh stock, fair prices, and staff who know feed.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">Browse Products</a>
+        <a href="#location" class="btn btn-outline">Get Directions</a>
+      </div>
+      <div class="status-row">
+        <span id="open-status" class="status-badge">Checking hours…</span>
+        <span class="status-hours">Mon–Sat 7am–7pm · Sun 8am–5pm</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="200" cy="200" r="180" fill="#F3EBDA"/>
+        <rect x="120" y="180" width="160" height="130" rx="4" fill="#D9A441"/>
+        <rect x="120" y="180" width="160" height="24" fill="#3A2B1E"/>
+        <path d="M120 180 L200 120 L280 180 Z" fill="#5C7A52"/>
+        <rect x="160" y="230" width="80" height="80" fill="#C1712F"/>
+        <line x1="160" y1="260" x2="240" y2="260" stroke="#3A2B1E" stroke-width="3"/>
+        <circle cx="100" cy="140" r="4" fill="#C1712F"/>
+        <circle cx="300" cy="160" r="3" fill="#5C7A52"/>
+        <circle cx="90" cy="230" r="3" fill="#5C7A52"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="board">
+  <div class="wrap">
+    <div class="eyebrow">Today's Board</div>
+    <h2>Current stock &amp; prices.</h2>
+    <p class="sub">
+      Prices are per bag as shown, in KES. Shown here for quick reference —
+      always confirm at the counter, since feed prices move with supply.
+    </p>
+    <div class="chalkboard">
+      {% for category in categories %}
+        {% for product in category.products.all %}
+          {% if product.in_stock %}
+          <div class="chalk-row">
+            <span class="chalk-cat">{{ category.icon }} {{ category.name }}</span>
+            <span class="chalk-name">{{ product.name }}</span>
+            <span class="chalk-unit">{{ product.unit }}</span>
+            <span class="chalk-price">KES {{ product.price|floatformat:0 }}</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% empty %}
+        <p class="chalk-empty">No products yet — add some from the admin panel at /admin.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Full Range</div>
+      <h2>Shop by animal.</h2>
+      <p>Every category we carry, grouped the way you'd ask for it at the counter.</p>
+    </div>
+
+    {% for category in categories %}
+    <div class="category-block">
+      <div class="category-heading">
+        <span class="cat-icon">{{ category.icon }}</span>
+        <div>
+          <h3>{{ category.name }}</h3>
+          {% if category.description %}<p>{{ category.description }}</p>{% endif %}
+        </div>
+      </div>
+      <div class="product-grid">
+        {% for product in category.products.all %}
+        <div class="product-card {% if not product.in_stock %}out-of-stock{% endif %}">
+          {% if product.featured %}<span class="featured-tag">Popular</span>{% endif %}
+          <h4>{{ product.name }}</h4>
+          <span class="unit">{{ product.unit }}</span>
+          {% if product.description %}<p class="desc">{{ product.description }}</p>{% endif %}
+          <div class="price-row">
+            <span class="price">KES {{ product.price|floatformat:0 }}</span>
+            {% if product.in_stock %}
+              <span class="stock in">In stock</span>
+            {% else %}
+              <span class="stock out">Out of stock</span>
+            {% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <p class="chalk-empty">No products in this category yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% empty %}
+    <!-- <p class="chalk-empty">
+      No categories yet. Run <code>python manage.py seed_products</code> to
+      load sample data, or add your own at /admin.
+    </p> -->
+    {% endfor %}
+  </div>
+</section>
+
+<section class="why-us" id="why-us">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-num">01</span>
+        <h4>Fresh stock, always</h4>
+        <p>We turn over inventory fast, so bags moving off our shelves haven't been sitting for months.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num">02</span>
+        <h4>Right on Waiyaki Way</h4>
+        <p>Easy to reach whether you're coming from Uthiru, Kikuyu, or into town — no detour needed.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num">03</span>
+        <h4>Staff who know feed</h4>
+        <p>Ask us what's right for a new layer flock or a finishing pig — we'll tell you straight.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num">04</span>
+        <h4>Bulk-friendly pricing</h4>
+        <p>Buying for a bigger operation? Ask about pricing on multi-bag and standing orders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="location" id="location">
+  <div class="wrap location-wrap">
+    <div>
+      <div class="eyebrow">Find Us</div>
+      <h2>Uthiru 87, Waiyaki Way.</h2>
+      <p class="loc-copy">We're right along Waiyaki Way in Uthiru — look for the shop front with feed bags stacked out on the veranda. Parking is available directly outside for quick loading.</p>
+      <ul class="loc-list">
+        <li><strong>Address:</strong> Uthiru 87, Waiyaki Way, Nairobi</li>
+        <li><strong>Landmark:</strong> Along Waiyaki Way, Uthiru area</li>
+        <li><strong>Hours:</strong> Mon–Sat 7am–7pm · Sun 8am–5pm</li>
+        <li><strong>Phone:</strong> <a href="tel:+254700000000">+254 700 000 000</a></li>
+      </ul>
+      <a href="tel:+254700000000" class="btn btn-primary">Call for Directions</a>
+    </div>
+    <div class="map-card">
+      <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="400" height="320" fill="#EEE6D4"/>
+        <path d="M0 220 C120 190, 280 250, 400 200 L400 320 L0 320 Z" fill="#D9CBA6"/>
+        <path d="M0 150 L400 190" stroke="#C1712F" stroke-width="10" stroke-linecap="round"/>
+        <path d="M0 150 L400 190" stroke="#F3EBDA" stroke-width="2" stroke-dasharray="8 8"/>
+        <circle cx="190" cy="168" r="10" fill="#3A2B1E"/>
+        <path d="M190 148 L200 168 L180 168 Z" fill="#3A2B1E"/>
+        <text x="80" y="140" font-family="monospace" font-size="12" fill="#5C4A34">Kikuyu →</text>
+        <text x="290" y="215" font-family="monospace" font-size="12" fill="#5C4A34">→ Nairobi CBD</text>
+        <text x="150" y="190" font-family="monospace" font-size="11" fill="#3A2B1E">Waiyaki Way</text>
+      </svg>
+      <p class="map-note">Illustrative map — replace with a real Google Maps embed of Uthiru 87, Waiyaki Way for exact directions.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

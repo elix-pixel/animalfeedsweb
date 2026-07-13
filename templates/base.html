@@ -1,0 +1,83 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Uthiru Farm Feeds{% endblock %}</title>
+<meta name="description" content="Animal feeds shop at Uthiru 87, Waiyaki Way — poultry, dairy, pig, rabbit and pet feed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="{% url 'home' %}" class="brand">
+      <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" fill="#3A2B1E"/>
+        <path d="M24 12c-6 4-10 9-10 15a10 10 0 0 0 20 0c0-6-4-11-10-15Z" fill="#D9A441"/>
+        <circle cx="24" cy="26" r="3.5" fill="#3A2B1E"/>
+      </svg>
+      <span>Uthiru Farm Feeds</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#board">Price Board</a></li>
+      <li><a href="#why-us">Why Us</a></li>
+      <li><a href="#location">Location</a></li>
+    </ul>
+    <a href="tel:+254700000000" class="btn btn-primary">Call to Order</a>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </nav>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="#D9A441"/>
+            <path d="M24 12c-6 4-10 9-10 15a10 10 0 0 0 20 0c0-6-4-11-10-15Z" fill="#2B2118"/>
+          </svg>
+          <span>Uthiru Farm Feeds</span>
+        </div>
+        <p class="foot-copy">Uthiru 87, Waiyaki Way<br>Nairobi, Kenya</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#board">Price Board</a></li>
+          <li><a href="#location">Find Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <ul>
+          <li>Mon – Sat: 7:00am – 7:00pm</li>
+          <li>Sunday: 8:00am – 5:00pm</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+254700000000">+254 700 000 000</a></li>
+          <li><a href="mailto:info@uthirufarmfeeds.example">info@uthirufarmfeeds.example</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {% now "Y" %} Uthiru Farm Feeds. All rights reserved.</span>
+      <!-- <span>Template built for demonstration purposes.</span> -->
+    </div>
+  </div>
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
